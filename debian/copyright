@@ -1,0 +1,19 @@
+This package was debianized by Vítězslav Dvořák <info@vitexsoftware.cz> using dh-make-pear
+on Fri, 24 Apr 2015 09:39:21 +0200.
+
+It was downloaded from http://pear.php.net/package/Image_GraphViz
+
+Upstream Author(s):
+
+    Philippe Jausions, Dr. Volker Goebbels, Sebastian Bergmann
+
+Copyright:
+
+    Copyright (C) 2010 Philippe Jausions, Dr. Volker Goebbels, Sebastian Bergmann
+
+License:
+
+    Array
+
+The Debian packaging is copyright 2009, Vítězslav Dvořák <info@vitexsoftware.cz> and
+is licensed under the GPL, see `/usr/share/common-licenses/GPL'.

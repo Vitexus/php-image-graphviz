@@ -1,0 +1,7 @@
+php-image-graphviz for Debian
+--------------------------
+
+This extension has been created with dh-make-pear which is part
+of dh-make-php.
+
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>, Fri, 24 Apr 2015 09:39:21 +0200
