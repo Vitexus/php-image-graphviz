@@ -1,3 +1,16 @@
+php-image-graphviz (1.3.2-1) UNRELEASED; urgency=medium
+
+  * Added Json export support
+  * Debianized 1.3.2
+
+ -- vitex <vitex@linuxadmin.austro-bohemia.local>  Sat, 30 May 2015 16:01:41 +0200
+
+php-image-graphviz (1.3.1-1) unstable; urgency=low
+
+  * Update to current PHP5 
+
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Fri, 24 Apr 2015 10:56:21 +0200
+
 php-image-graphviz (1.3.0-2) unstable; urgency=low
 
   * Added deps to graphviz

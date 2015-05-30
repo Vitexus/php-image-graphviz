@@ -23,6 +23,7 @@
  * @author    Karsten Dambekalns <k.dambekalns@fishfarm.de>
  * @author    Michael Lively Jr. <mlively@ft11.net>
  * @author    Philippe Jausions <Philippe.Jausions@11abacus.com>
+ * @author    Vítězslav Dvořák <vitex@vitexsoftware.cz>
  * @copyright 2001-2007 Dr. Volker Gobbels <vmg@arachnion.de> and Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version   CVS: $Id: GraphViz.php 304688 2010-10-24 05:21:17Z clockwerx $
@@ -226,18 +227,23 @@ class Image_GraphViz
      */
     function image($format = 'svg', $command = null)
     {
-        $file = $this->saveParsedGraph();
-        if (!$file || $this->PEAR->isError($file)) {
-            return $file;
+        if ($format == 'json') {
+            header('Content-Type: application/json');
+            echo $this->toJson();
+            exit();
+        } else {
+            $file = $this->saveParsedGraph();
+            if (!$file || $this->PEAR->isError($file)) {
+                return $file;
+            }
+
+            $outputfile = $file . '.' . $format;
+
+            $rendered = $this->renderDotFile($file, $outputfile, $format, $command);
+            if ($rendered !== true) {
+                return $rendered;
+            }
         }
-
-        $outputfile = $file . '.' . $format;
-
-        $rendered = $this->renderDotFile($file, $outputfile, $format, $command);
-        if ($rendered !== true) {
-            return $rendered;
-        }
-
         $sendContentLengthHeader = true;
 
         switch (strtolower($format)) {
@@ -822,6 +828,38 @@ class Image_GraphViz
         }
 
         return array_unique($top);
+    }
+
+    /**
+     * Parses the graph into Json markup.
+     *
+     * @return string Json markup
+     * @access public
+     */
+    function toJson()
+    {
+        $parsedGraph = array();
+        $nodes = array();
+
+        $parsedGraph['nodes'] = array();
+        $nodePos = 0;
+        foreach ($this->graph['nodes'] as $group) {
+            foreach ($group as $nodename => $node) {
+                $parsedGraph['nodes'][] = $node;
+                $nodes[$nodename] = $nodePos++;
+            }
+        }
+
+        foreach ($this->graph['edgesFrom'] as $source => $target) {
+            $target = key($target);
+            if (isset($nodes[$target]) && isset($nodes[$source])) {
+                $parsedGraph['links'][] = array('source' => $nodes[$source], 'target' => $nodes[$target]);
+            } else {
+                $source . ' -> ' . $target;
+            }
+        }
+
+        return json_encode($parsedGraph);
     }
 
     /**

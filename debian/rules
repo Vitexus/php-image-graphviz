@@ -1,7 +1,11 @@
 #!/usr/bin/make -f
 # template debian/rules provided by dh-make-php.
 
-DEB_COMPRESS_EXCLUDE=package.xml
+%:
+	dh $@
 
-include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/class/pear.mk
+
+#DEB_COMPRESS_EXCLUDE=package.xml
+
+#include /usr/share/cdbs/1/rules/debhelper.mk
+#include /usr/share/cdbs/1/class/pear.mk
